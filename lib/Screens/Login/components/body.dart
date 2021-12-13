@@ -8,12 +8,15 @@ import 'package:flutter_auth/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_auth/Screens/Waiting/Waiting.dart';
 
-class Body extends StatelessWidget {
-  const Body({
-    Key key,
-  }) : super(key: key);
-
+class Body extends StatefulWidget {
   @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  @override
+  var value1 = "324234fvsd";
+
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
@@ -35,10 +38,17 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
               hintText: "Your ID",
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  value = value1;
+                });
+              },
             ),
             RoundedPasswordField(
-              onChanged: (value) {},
+              onChanged: (value) {
+                value = value1;
+                print(value);
+              },
             ),
             RoundedButton(
               text: "LOGIN",
