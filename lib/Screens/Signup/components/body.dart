@@ -9,8 +9,18 @@ import 'package:flutter_auth/components/rounded_button.dart';
 import 'package:flutter_auth/components/rounded_input_field.dart';
 import 'package:flutter_auth/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  Future pickeImage() async {
+    await ImagePicker().pickImage(source: ImageSource.camera);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -59,6 +69,12 @@ class Body extends StatelessWidget {
                     },
                   ),
                 );
+              },
+            ),
+            RoundedButton(
+              text: "Camera",
+              press: () {
+                pickeImage();
               },
             ),
             SizedBox(height: size.height * 0.03),

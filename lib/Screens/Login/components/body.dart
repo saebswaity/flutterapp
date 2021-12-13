@@ -31,15 +31,6 @@ class _BodyState extends State<Body> {
       });
     }
 
-    Future<void> writejson(c) async {
-      final String response =
-          await rootBundle.loadString('assets/employee data/dataemp.json');
-      final data = await json.decode(response);
-      setState(() {
-        data["email"] = c;
-      });
-    }
-
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
@@ -60,12 +51,7 @@ class _BodyState extends State<Body> {
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
               hintText: "Your ID",
-              onChanged: (value) {
-                readJson();
-                print(value1);
-                print(value);
-                writejson(value);
-              },
+              onChanged: (value) {},
             ),
             RoundedPasswordField(
               onChanged: (value) {
