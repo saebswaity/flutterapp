@@ -7,6 +7,9 @@ import 'package:flutter_auth/components/rounded_input_field.dart';
 import 'package:flutter_auth/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_auth/Screens/Waiting/Waiting.dart';
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -15,9 +18,28 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   @override
-  var value1 = "324234fvsd";
-
   Widget build(BuildContext context) {
+    var value1 = "324234fvsd";
+
+    // Fetch content from the json file
+    Future<void> readJson() async {
+      final String response =
+          await rootBundle.loadString('assets/employee data/dataemp.json');
+      final data = await json.decode(response);
+      setState(() {
+        value1 = data["email"];
+      });
+    }
+
+    Future<void> writejson(c) async {
+      final String response =
+          await rootBundle.loadString('assets/employee data/dataemp.json');
+      final data = await json.decode(response);
+      setState(() {
+        data["email"] = c;
+      });
+    }
+
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
@@ -39,15 +61,15 @@ class _BodyState extends State<Body> {
             RoundedInputField(
               hintText: "Your ID",
               onChanged: (value) {
-                setState(() {
-                  value = value1;
-                });
+                readJson();
+                print(value1);
+                print(value);
+                writejson(value);
               },
             ),
             RoundedPasswordField(
               onChanged: (value) {
-                value = value1;
-                print(value);
+                //value = value1;
               },
             ),
             RoundedButton(
