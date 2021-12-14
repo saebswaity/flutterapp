@@ -5,6 +5,7 @@ import 'package:flutter_auth/components/already_have_an_account_acheck.dart';
 import 'package:flutter_auth/components/rounded_button.dart';
 import 'package:flutter_auth/components/rounded_input_field.dart';
 import 'package:flutter_auth/components/rounded_password_field.dart';
+import 'package:flutter_auth/utils/user_simple_preferences.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_auth/Screens/Waiting/Waiting.dart';
 import 'dart:convert';
@@ -17,6 +18,19 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  String name = '';
+  String company = '';
+  String email = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    name = UserSimplePreferences.getUsername() ?? '';
+    company = UserSimplePreferences.getcompany() ?? '';
+    email = UserSimplePreferences.getemail() ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
     var value1 = "324234fvsd";
@@ -51,7 +65,11 @@ class _BodyState extends State<Body> {
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
               hintText: "Your Company",
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  value = "dadadaddadadadadadadadad";
+                });
+              },
             ),
             RoundedInputField(
               hintText: "Your ID",
@@ -91,7 +109,11 @@ class _BodyState extends State<Body> {
             SizedBox(height: size.height * 0.03),
             RoundedButton(
               text: "Save",
-              press: () {},
+              press: () async {
+                await UserSimplePreferences.setUsername(name);
+                await UserSimplePreferences.setcompany(company);
+                await UserSimplePreferences.setemail(email);
+              },
             ),
           ],
         ),
